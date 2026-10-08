@@ -31,7 +31,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 
 ## 安装
 
-把 `image-to-structured-text/` 整个目录复制到你所在 Agent 的 Skills 目录，重新加载 Skills 或重启会话即可。
+把 `visift/` 整个目录复制到你所在 Agent 的 Skills 目录，重新加载 Skills 或重启会话即可。
 
 | Agent | 项目级路径 |
 | --- | --- |
@@ -40,7 +40,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 | Claude Code | `.claude/skills/` |
 | 通用 | 该 Agent 文档指定的 skills 目录 |
 
-本地 Codex 会话通过 `.agents/skills/image-to-structured-text/` 发现 Skill；该副本与作为唯一源文件的 `image-to-structured-text/` 必须逐字节一致，`scripts/check-skill.mjs` 会检查。
+本地 Codex 会话通过 `.agents/skills/visift/` 发现 Skill；该副本与作为唯一源文件的 `visift/` 必须逐字节一致，`scripts/check-skill.mjs` 会检查。
 
 ## 使用
 
@@ -56,7 +56,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 
 ## 输出形式
 
-正文形式按用户请求选择，默认整合文章；详细规则见 [输出选择与交付](image-to-structured-text/references/image-types.md)。
+正文形式按用户请求选择，默认整合文章；详细规则见 [输出选择与交付](visift/references/image-types.md)。
 
 | 形式 | 触发意图 | 处理方式 |
 | --- | --- | --- |
@@ -85,7 +85,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 
 ## 分批上传与后续修改
 
-分批、追加与修正规则见 [分批上传与后续修正](image-to-structured-text/references/dedup-and-rewriting.md)。
+分批、追加与修正规则见 [分批上传与后续修正](visift/references/dedup-and-rewriting.md)。
 
 - 用户说“还没发完 / 等发完再整理”时，只确认收到的图片范围；收到“发完了 / 开始整理”再处理。未要求等待则直接处理。
 - 同一批跨消息连续编号，保存已处理、待处理和缺口的位置；追加时沿用已选正文形式和交付方式。
@@ -101,7 +101,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 绝对不许推测补出：数字、单位、金额、时间、日期、人名、地名、机构名、产品名、版本号、专有名词、否定词、条件与程度词（如果 / 必须 / 仅 / 可能 / 不）、结论性表述、比较关系——无法核对时按原因标 `[无法辨认]` 或 `[内容被截断]`。
 
 满足全部前提且只有唯一解才补并标注，置信度记高；有第二解就不补，不再允许“中置信度选中性词”。图片边缘截断不做推测补全。
-所有补全登记位置、依据和补字；清晰原文的跨图核对单独登记，不使用 `〔〕`。详见 [补全与核对细则](image-to-structured-text/references/gap-filling.md)。
+所有补全登记位置、依据和补字；清晰原文的跨图核对单独登记，不使用 `〔〕`。详见 [补全与核对细则](visift/references/gap-filling.md)。
 
 ## 干扰文字怎么排除
 
@@ -124,7 +124,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 2. **视觉层级异常**：半透明、描边、压在主体之上、贴在边角
 3. **语义与上下文不连贯**：塞进句子里读不通
 
-常见候选干扰包括水印、平台标识、弹幕、界面元素、页眉页脚、二维码提示与推广文案；类别本身不是删除依据，用途不明就保留并注明存疑。详见 [干扰判定细则](image-to-structured-text/references/interference-text.md)。
+常见候选干扰包括水印、平台标识、弹幕、界面元素、页眉页脚、二维码提示与推广文案；类别本身不是删除依据，用途不明就保留并注明存疑。详见 [干扰判定细则](visift/references/interference-text.md)。
 
 两个细节：
 - 水印看不清**不占缺口名额**（`[无法辨认]` 只留给正文内容），直接归到「未采纳」。
@@ -132,7 +132,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 
 ## 跨图整合与缺口修复
 
-跨图比对与修复分别按 [跨图关系细则](image-to-structured-text/references/dedup-and-rewriting.md) 和 [缺口核对细则](image-to-structured-text/references/gap-filling.md) 执行。
+跨图比对与修复分别按 [跨图关系细则](visift/references/dedup-and-rewriting.md) 和 [缺口核对细则](visift/references/gap-filling.md) 执行。
 
 | 情况 | 处理 |
 | --- | --- |
@@ -152,7 +152,7 @@ Skill 本体只有提示词：`SKILL.md` 做入口与路由，`references/` 放�
 ## 目录结构
 
 ```
-image-to-structured-text/
+visift/
 ├── README.md                          # 本文件，给人看（中文）
 ├── README_EN.md                       # 同一份说明的英文版，小节结构一一对应
 ├── AGENTS.md                          # 给进来改这个仓库的 AI 看的规矩
@@ -161,7 +161,7 @@ image-to-structured-text/
 │   └── check-skill.mjs                # 开发用质量闸门，不参与执行
 ├── evidence/
 │   └── README.md                      # 运行记录的命名与格式
-└── image-to-structured-text/
+└── visift/
     ├── SKILL.md                       # 入口：模式与触发边界、8 步流程、交付路由、自检
     └── references/                    # 按需加载的细则
         ├── image-types.md             # 输出形式与模板、Markdown 交付、9 类图片细则

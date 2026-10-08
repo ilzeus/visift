@@ -1,15 +1,15 @@
 # Agent instructions
 
-在这个仓库里工作的 AI 必读。这里只放"不遵守就会静默出错"的规矩；给人看的说明在 `README.md`，给执行侧的逻辑在 `image-to-structured-text/SKILL.md`。
+在这个仓库里工作的 AI 必读。这里只放"不遵守就会静默出错"的规矩；给人看的说明在 `README.md`，给执行侧的逻辑在 `visift/SKILL.md`。
 
 ## 仓库是什么
 
-单 Skill 仓库。Skill 本体 = `image-to-structured-text/`（`SKILL.md` + `references/` 四份细则），**Skill 目录里没有也不应该有 README.md**，人看的文档在仓库根。仓库根下没有 `skills/` 这层壳，别按老路径写文件或写文档。
+单 Skill 仓库。Skill 本体 = `visift/`（`SKILL.md` + `references/` 四份细则），**Skill 目录里没有也不应该有 README.md**，人看的文档在仓库根。仓库根下没有 `skills/` 这层壳，别按老路径写文件或写文档。
 
 ## 每轮改动的收尾动作（不可省）
 
 1. `node scripts/check-skill.mjs` —— 必须 0 FAIL。它管 name 与目录名一致、`description` 字符与字节双上限、触发词齐全、`SKILL.md` ≤160 行、`references/` 引用无死链、安装副本一致。
-2. Codex 仓库级发现路径是 `.agents/skills/`，同步副本只能整份重建。为避免旧文件残留，先把现有副本移入 `.agents/skill-backups/`，再用 `Copy-Item -Recurse -LiteralPath image-to-structured-text -Destination .agents/skills/` 复制完整目录；禁止递归删除。
+2. Codex 仓库级发现路径是 `.agents/skills/`，同步副本只能整份重建。为避免旧文件残留，先把现有副本移入 `.agents/skill-backups/`，再用 `Copy-Item -Recurse -LiteralPath visift -Destination .agents/skills/` 复制完整目录；禁止递归删除。
 3. 改完在当前会话用 `/skills reload` 或提示用户开新会话，否则调用的还是旧逻辑。
 4. 改过 `check-skill.mjs` 本身，必须造一个负例目录验证它真会 FAIL，再看一次 exit=0。只跑一次通过不等于它有效。
 
@@ -22,7 +22,7 @@
 
 - **Git 操作**：本仓库已在用户授权下纳入本地 Git 管理。后续提交、建分支、配置远程或推送仍须有用户授权；本次初始化不代表已授权发布到 GitHub。
 - 不新增 `LICENSE`、`.gitignore`、`CHANGELOG.md`、示例脚本、依赖声明文件——"更规范"不是理由，先问。
-- 不把测试文件、fixture、图片、脚本放进 `image-to-structured-text/`。
+- 不把测试文件、fixture、图片、脚本放进 `visift/`。
 - 不在用户没要求时把输出写成文件。
 - 不改动用户已经拍板过的决定（仓库形态、命名、语言策略），除非用户自己重开。
 

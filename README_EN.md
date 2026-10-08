@@ -31,7 +31,7 @@ For default organization tasks, the rules address these five types of problems:
 
 ## Install
 
-Copy the whole `image-to-structured-text/` directory into your agent's skills directory, then reload skills or start a new session.
+Copy the whole `visift/` directory into your agent's skills directory, then reload skills or start a new session.
 
 | Agent | Project-level path |
 | --- | --- |
@@ -40,7 +40,7 @@ Copy the whole `image-to-structured-text/` directory into your agent's skills di
 | Claude Code | `.claude/skills/` |
 | Generic | Whatever that agent's docs specify |
 
-The local Codex session discovers the skill through `.agents/skills/image-to-structured-text/`. This copy must remain byte-identical to the single source at `image-to-structured-text/`; `scripts/check-skill.mjs` enforces that.
+The local Codex session discovers the skill through `.agents/skills/visift/`. This copy must remain byte-identical to the single source at `visift/`; `scripts/check-skill.mjs` enforces that.
 
 ## Usage
 
@@ -56,7 +56,7 @@ You can choose a body form, request body text without an editor’s note, retain
 
 ## Output forms
 
-Choose the body form from the request, with an integrated article as the default. See [output selection and delivery](image-to-structured-text/references/image-types.md) for detailed rules.
+Choose the body form from the request, with an integrated article as the default. See [output selection and delivery](visift/references/image-types.md) for detailed rules.
 
 | Form | Requested intent | Handling |
 | --- | --- | --- |
@@ -85,7 +85,7 @@ This version defines conversation and Markdown-file delivery. HTML and JSON rema
 
 ## Upload batches and later edits
 
-See [upload batches and later edits](image-to-structured-text/references/dedup-and-rewriting.md) for collection, continuation, and revision rules.
+See [upload batches and later edits](visift/references/dedup-and-rewriting.md) for collection, continuation, and revision rules.
 
 - When the user says they are still uploading or asks to wait, acknowledge only the received range; process after “all uploaded” or “start”. Otherwise, process directly.
 - Keep image numbering stable across messages in the same batch, tracking processed and pending ranges and gap locations; retain the selected body form and delivery method.
@@ -101,7 +101,7 @@ When no visible source can resolve a gap, inferred filling requires **all four c
 Never infer numbers, units, amounts, times, dates, people, places, institutions, product names, versions, proper nouns, negations, conditions and degree words (if / must / only / may / not), conclusions, or comparisons. Without a readable source, use `[无法辨认]` or `[内容被截断]` according to the cause.
 
 Fill and mark only a unique candidate that meets every condition, recorded as high confidence. A second reading means no fill; there is no medium-confidence exception for a neutral word. Never infer text cut off at an image edge.
-Record each inferred fill, its location, and its evidence. Cross-image verification against visible text is logged separately and does not use `〔〕`. See the [gap and verification rules](image-to-structured-text/references/gap-filling.md).
+Record each inferred fill, its location, and its evidence. Cross-image verification against visible text is logged separately and does not use `〔〕`. See the [gap and verification rules](visift/references/gap-filling.md).
 
 ## How noise text gets excluded
 
@@ -124,7 +124,7 @@ For text unrelated to the task, consider these cues in order; two matches are ne
 2. **Wrong visual layer**: semi-transparent, outlined, pressed above the subject, glued to a corner
 3. **Semantically incoherent with its surroundings**: it doesn't read as part of a sentence
 
-Potential noise includes watermarks, platform marks, overlays, UI elements, headers and footers, QR prompts, and promotional copy. Category alone does not justify deletion; preserve uncertain items and note the uncertainty. See the [noise rules](image-to-structured-text/references/interference-text.md).
+Potential noise includes watermarks, platform marks, overlays, UI elements, headers and footers, QR prompts, and promotional copy. Category alone does not justify deletion; preserve uncertain items and note the uncertainty. See the [noise rules](visift/references/interference-text.md).
 
 Two details worth calling out:
 - An illegible watermark **does not consume a gap slot** (`[无法辨认]` is reserved for body content) — it goes straight to "not adopted".
@@ -132,7 +132,7 @@ Two details worth calling out:
 
 ## Cross-image integration and gap repair
 
-Cross-image comparison and repair follow the [cross-image rules](image-to-structured-text/references/dedup-and-rewriting.md) and [gap verification rules](image-to-structured-text/references/gap-filling.md), respectively.
+Cross-image comparison and repair follow the [cross-image rules](visift/references/dedup-and-rewriting.md) and [gap verification rules](visift/references/gap-filling.md), respectively.
 
 | Situation | Handling |
 | --- | --- |
@@ -152,7 +152,7 @@ Once a new image is confirmed to match, repair that location, update current gap
 ## Layout
 
 ```
-image-to-structured-text/
+visift/
 ├── README.md                          # human-facing doc, Chinese original
 ├── README_EN.md                       # this file — same sections, one-to-one with README.md
 ├── AGENTS.md                          # rules for any AI working inside this repo
@@ -161,7 +161,7 @@ image-to-structured-text/
 │   └── check-skill.mjs                # development quality gate, never part of execution
 ├── evidence/
 │   └── README.md                      # naming and format of run records
-└── image-to-structured-text/
+└── visift/
     ├── SKILL.md                       # entrypoint: modes and triggers, 8 steps, delivery routing, self-check
     └── references/                    # detail documents, loaded on demand
         ├── image-types.md             # output forms and template, Markdown delivery, 9 image-type rules

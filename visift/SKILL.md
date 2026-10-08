@@ -1,9 +1,9 @@
 ---
-name: image-to-structured-text
+name: visift
 description: 将用户提供的图片、截图、照片整理成忠实的结构化文字，默认整合文章，也支持结构化笔记、字段表格和明确要求的逐字转录。按任务区分正文与水印等干扰，跨图去重和核对缺口，不编造；默认在对话中输出，仅按用户要求导出 Markdown 文件。当用户发送图片并要求整理、提取文字、做笔记、按字段列成表格、分批上传后整合或补图修正时使用。不用于视频、动图、无文字图片或物体人物场景识别；不补写需外部知识才能恢复的残缺内容。Use when asked to extract, transcribe, or organize images and screenshots (OCR text, notes, watermark filtering).
 ---
 
-# Image to Structured Text
+# Visift
 
 ## Overview
 
